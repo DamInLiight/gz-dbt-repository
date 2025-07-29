@@ -12,28 +12,44 @@ sources:
         columns: 
           - name: products_id
             description: primary key identification
+            tests: 
+              - unique
+              - not_null
           - name: purchSE_PRICE
             description: purchase price of the product
       - name: sales
         identifier: raw_gz_sales
         description: raw data of greenweez sales
- ##       columns: 
-  ##        - name: date_date
-    ##        description: date of sale
-    ##      - name: orders_id
-     ##       description: order id of the sale
-     ##     - name: pdt_id
-     ##       description: product id of the sale product
-     ##     - name: revenue
-     ##       description: revenue of the sale
-     ##     - name: quantity
-     ##       description: quantity of the product sold
+        freshness:
+          warn_after:
+            count: 90
+            period: day
+        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
+        columns:
+          - name: date_date
+            description: date of sale
+          - name: orders_id
+            description: order id of the sale
+          - name: pdt_id
+            description: product id of the sale product
+            tests:
+              - not_null
+          - name: revenue
+            description: revenue of the sale
+          - name: quantity
+            description: quantity of the product sold
+        tests:
+          - unique: 
+              column_name: "(orders_id || '-' || pdt_id)"
       - name: ship
         identifier: raw_gz_ship
         description: raw data of greenweez ship
         columns: 
           - name: orders_id
             description: orders id of the shipped orders
+            tests:
+              - unique
+              - not_null
           - name: shipping_fee
             description: shipping fee of the order
           - name: shipping_fee_1
