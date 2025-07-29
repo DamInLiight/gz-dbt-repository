@@ -13,5 +13,5 @@ with
             on stg_raw__sales.products_id = stg_raw__product.products_id
     )
 
-select *, ROUND((revenue - purchase_price),2) as margin, ROUND((quantity*purchase_price),2) AS purchase_cost
+select *, (revenue - purchase_price) as margin, (quantity*purchase_price) AS purchase_cost
 from j_sales_pdt
