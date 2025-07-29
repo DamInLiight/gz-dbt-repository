@@ -10,7 +10,7 @@ sources:
         identifier: gz_raw_product
         description: raw data of greenweez products
         columns: 
-          - name: product_id
+          - name: products_id
           description: primary key. identification unique
           tests:
             - unique
