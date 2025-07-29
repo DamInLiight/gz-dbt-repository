@@ -1,0 +1,17 @@
+#schema.yml
+
+version 2: 
+
+sources:
+  - name: gz_raw_data
+    schema: raw
+    tables:
+      - name: product
+        identifier: gz_raw_product
+        description: raw data of greenweez products
+      - name: sales
+        identifier: gz_raw_sales
+        description: raw data of greenweez sales
+      - name: ship
+        identifier: gz_raw_ship
+        description: raw data of greenweez ship
