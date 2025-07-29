@@ -1,18 +1,23 @@
 #schema.yml
 
-version 2: 
+version 2:
 
 sources:
   - name: raw
     schema: gz_raw_data
+    freshness:
+      warn_after:
+        count: 90
+        period: day
+    loaded_at_field: date_date
     tables:
       - name: product
         identifier: raw_gz_product
         description: raw data of greenweez products
-        columns: 
+        columns:
           - name: products_id
             description: primary key identification
-            tests: 
+            tests:
               - unique
               - not_null
           - name: purchSE_PRICE
@@ -20,11 +25,6 @@ sources:
       - name: sales
         identifier: raw_gz_sales
         description: raw data of greenweez sales
-        freshness:
-          warn_after:
-            count: 90
-            period: day
-        loaded_at_field: "CAST(date_date AS TIMESTAMP)"
         columns:
           - name: date_date
             description: date of sale
@@ -39,12 +39,12 @@ sources:
           - name: quantity
             description: quantity of the product sold
         tests:
-          - unique: 
+          - unique:
               column_name: "(orders_id || '-' || pdt_id)"
       - name: ship
         identifier: raw_gz_ship
         description: raw data of greenweez ship
-        columns: 
+        columns:
           - name: orders_id
             description: orders id of the shipped orders
             tests:
