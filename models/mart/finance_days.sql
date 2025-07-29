@@ -10,3 +10,4 @@ SELECT
     ROUND(SUM(quantity),2) as total_product_sold
 FROM {{ref("int_orders_operational")}}
 GROUP BY date_date
+ORDER BY date_date ASC
