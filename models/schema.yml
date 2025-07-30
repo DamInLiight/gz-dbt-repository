@@ -58,6 +58,106 @@ sources:
             description: cost of the logistic
           - name: ship_Cost
             description: cost of the shipping
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: Raw data of facebook ads campaign
+        columns:
+          - name: date_date
+            description: date de la campagne pub
+            tests:
+              - not_null
+          - name: paid_source
+            description: source de paiement
+          - name: campaign_key
+            description: clé de la campagne
+            tests:
+              - not_null
+          - name: camPGN_name
+            description: nom de la campagne
+          - name: ads_cost
+            description: cout de la campagne pub
+          - name: impression
+            description: nombre d'apparition dans les recherches
+          - name: click
+            description: nombre de click sur la pub
+        tests:
+          - unique:
+              column_name: "(date_date || '-' || campaign_key)"
+      - name: criteo
+        identifier: raw_gz_criteo
+        description: raw data of criteo ads campaign
+        columns:
+          - name: date_date
+            description: date de la campagne pub
+            tests:
+              - not_null
+          - name: paid_source
+            description: source de paiement
+          - name: campaign_key
+            description: clé de la campagne
+            tests:
+              - not_null
+          - name: camPGN_name
+            description: nom de la campagne
+          - name: ads_cost
+            description: cout de la campagne pub
+          - name: impression
+            description: nombre d'apparition dans les recherches
+          - name: click
+            description: nombre de click sur la pub
+        tests:
+          - unique:
+              column_name: "(date_date || '-' || campaign_key)"
+      - name: bing
+        identifier: raw_gz_bing
+        description: raw data of bing ads campaign
+        columns:
+          - name: date_date
+            description: date de la campagne pub
+            tests:
+              - not_null
+          - name: paid_source
+            description: source de paiement
+          - name: campaign_key
+            description: clé de la campagne
+            tests:
+              - not_null
+          - name: camPGN_name
+            description: nom de la campagne
+          - name: ads_cost
+            description: cout de la campagne pub
+          - name: impression
+            description: nombre d'apparition dans les recherches
+          - name: click
+            description: nombre de click sur la pub
+        tests:
+          - unique:
+              column_name: "(date_date || '-' || campaign_key)"
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: raw data of adwords campaign
+        columns:
+          - name: date_date
+            description: date de la campagne pub
+            tests:
+              - not_null
+          - name: paid_source
+            description: source de paiement
+          - name: campaign_key
+            description: clé de la campagne
+            tests:
+              - not_null
+          - name: camPGN_name
+            description: nom de la campagne
+          - name: ads_cost
+            description: cout de la campagne pub
+          - name: impression
+            description: nombre d'apparition dans les recherches
+          - name: click
+            description: nombre de click sur la pub
+        tests:
+          - unique:
+              column_name: "(date_date || '-' || campaign_key)"
 models:
   - name: int_sales_margin
     description: fusion des tables products and sales avec ajout de margin et purchase cost
@@ -209,4 +309,17 @@ models:
         description: quantité totale de produits vendus
         tests:
           - not_null
-  
+  - name: finance_campaigns_day
+    description: fusion de finance_day avec finance_campaigns_day
+    columns:
+      - name: date_date
+        description: jour de la campagne
+        tests:
+          - not_null
+          - unique
+      - name: ads_cost
+        description: cout de la campagne
+        tests:
+          - not_null: 
+              where: "ads_cost >0"
+              
