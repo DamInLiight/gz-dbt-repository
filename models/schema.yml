@@ -309,6 +309,12 @@ models:
         description: quantité totale de produits vendus
         tests:
           - not_null
+  - name: int_campaigns_day
+    columns:
+      - name: date_date
+        tests:
+          - unique
+          - not_null
   - name: finance_campaigns_day
     description: fusion de finance_day avec finance_campaigns_day
     columns:
