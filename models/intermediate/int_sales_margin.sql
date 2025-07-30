@@ -14,6 +14,6 @@ with
     )
 
 select *, 
-(revenue - purchase_price) as margin, 
+(revenue - (purchase_price*quantity)) as margin, 
 (quantity*purchase_price) AS purchase_cost
 from j_sales_pdt
