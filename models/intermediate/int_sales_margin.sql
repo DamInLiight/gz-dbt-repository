@@ -7,13 +7,15 @@ with
             revenue,
             quantity,
             stg_raw__product.purchase_price,
+            (stg_raw__product.purchase_price * quantity) as purchase_cost
         from {{ ref("stg_raw__sales") }}
         left join
             {{ ref("stg_raw__product") }}
             on stg_raw__sales.products_id = stg_raw__product.products_id
     )
 
-select *, 
-(revenue - (purchase_price*quantity)) as margin, 
-(quantity*purchase_price) AS purchase_cost
-from j_sales_pdt
+SELECT 
+  *, 
+  (revenue - purchase_cost) AS margin,
+  {{ margin_percent('revenue', 'purchase_cost') }} AS margin_percent
+FROM j_sales_pdt
